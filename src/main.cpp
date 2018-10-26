@@ -48,25 +48,25 @@ struct config : actor_system_config {
   }
 };
 
-void run_server(actor_system& sys, const config& cfg) {
-  cout << "run_server: implement me" << endl;
+void run_coordinator(actor_system& sys, const config& cfg) {
+  cout << "run_coordinator: implement me" << endl;
 }
 
 void run_manager(actor_system& sys, const config& cfg) {
   cout << "run_manager: implement me" << endl;
 }
 
-void run_client(actor_system& sys, const config& cfg) {
-  cout << "run_client: implement me" << endl;
+void run_worker(actor_system& sys, const config& cfg) {
+  cout << "run_worker: implement me" << endl;
 }
 
 // dispatches to run_* function depending on selected mode
 void caf_main(actor_system &sys, const config &cfg) {
   using map_t = unordered_map<string, void (*)(actor_system &, const config &)>;
   map_t modes{
-      {"server", run_server},
+      {"coordinator", run_coordinator},
       {"manager", run_manager},
-      {"client", run_client}
+      {"worker", run_worker}
   };
   auto i = modes.find(cfg.mode);
   if (i != modes.end())
